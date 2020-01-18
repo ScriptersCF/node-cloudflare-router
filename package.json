@@ -1,0 +1,22 @@
+{
+  "name": "cf-router",
+  "version": "1.0.4",
+  "description": "A simple Cloudflare Workers router",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Visualizememe",
+  "license": "MIT",
+  "dependencies": {
+    "cookie": "^0.4.0",
+    "service-worker-router": "^1.7.5",
+    "url-pattern": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-security": "^1.4.0",
+    "express": "^4.17.1",
+    "jest": "^24.9.0"
+  }
+}

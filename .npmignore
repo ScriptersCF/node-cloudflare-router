@@ -1,0 +1,6 @@
+worker
+dist
+plan
+wrangler.toml
+oldSrc
+.idea
