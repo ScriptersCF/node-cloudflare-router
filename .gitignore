@@ -4,3 +4,5 @@ wrangler.toml
 plan
 oldSrc
 .idea
+dist
+worker
