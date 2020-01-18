@@ -2,6 +2,8 @@
 A simple module for easily processing incoming requests to Cloudflare Workers.
 
 ----
+<a href="https://npmjs.com/package/bloxy"><img src="https://img.shields.io/npm/v/cf-router.svg?maxAge=3600&style=flat-square" alt="NPM"></a>
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/97059473b41c44238c5698963065f47a)](https://www.codacy.com/manual/Visualizememe1/node-cf-router?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Visualizememe/node-cf-router&amp;utm_campaign=Badge_Grade)
 
 This module is super-easy to use, and it's plug-and-play. Literally. All you have to do to start
 is to tell the module when you want to process a request, and it will handle everything for you.
