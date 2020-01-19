@@ -1,7 +1,7 @@
 declare module "cf-router" {
     import * as UrlPattern from "url-pattern";
 
-    export class Router {
+    class Router {
         public _main: Router | null;
         public _initiated: boolean;
         public routes: Array<Route>;
@@ -76,4 +76,6 @@ declare module "cf-router" {
         middleware: boolean,
         num: number
     }
+
+    export = Router;
 }

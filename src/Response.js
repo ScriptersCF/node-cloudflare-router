@@ -141,6 +141,8 @@ class RouterResponse {
 			url,
 			status
 		};
+
+		return this;
 	}
 
 	/**
@@ -150,6 +152,7 @@ class RouterResponse {
 	 */
 	custom (body, init) {
 		this._custom = new Response(body, init);
+		return this;
 	}
 
 	/**
