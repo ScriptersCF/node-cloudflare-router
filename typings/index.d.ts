@@ -10,7 +10,11 @@ declare module "cf-router" {
         public basePath: string | null;
 
         public use(path: string, handler: Function | Router): void;
-        public get(path: string, handler: RouteCallback)
+        public get(path: string, handler: (request: RouterRequest, response: RouterResponse) => void);
+        public post(path: string, handler: (request: RouterRequest, response: RouterResponse) => void);
+        public head(path: string, handler: (request: RouterRequest, response: RouterResponse) => void);
+        public options(path: string, handler: (request: RouterRequest, response: RouterResponse) => void);
+        public delete(path: string, handler: (request: RouterRequest, response: RouterResponse) => void);
     }
 
     class RouterRequest {
@@ -65,9 +69,6 @@ declare module "cf-router" {
         public custom (body: any, init: any): RouterResponse;
         public _format (): any;
     }
-
-
-    type RouteCallback = (request: RouterRequest, response: RouterResponse) => [RouterResponse, Promise<any>[], RouterRequest];
 
     interface Route {
         rawPath: string,
