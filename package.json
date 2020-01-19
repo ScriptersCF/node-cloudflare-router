@@ -1,6 +1,6 @@
 {
   "name": "cf-router",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A simple Cloudflare Workers router",
   "main": "index.js",
   "scripts": {
