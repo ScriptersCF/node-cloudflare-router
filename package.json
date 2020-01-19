@@ -23,5 +23,6 @@
     "directory": "https://github.com/ScriptersCF/node-cf-router",
     "type": "GitHub",
     "url": "https://github.com/ScriptersCF/node-cf-router"
-  }
+  },
+  "types": "./typings/index.d.ts"
 }

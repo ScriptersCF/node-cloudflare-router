@@ -1,8 +1,10 @@
 const cookie = require("cookie");
 const contentTypes = {};
 
-
-class RequestResponse {
+/**
+ * @type {RouterResponse}
+ */
+class RouterResponse {
 	/**
 	 * Constructs a response
 	 * @param {Request} request The request
@@ -206,4 +208,4 @@ class RequestResponse {
 	}
 }
 
-module.exports = RequestResponse;
+module.exports = RouterResponse;

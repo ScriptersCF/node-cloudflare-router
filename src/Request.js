@@ -1,7 +1,10 @@
 const qs = require("querystring");
 const cookie = require("cookie");
 
-class Request {
+/**
+ * @type {RouterRequest}
+ */
+class RouterRequest {
 	constructor (request, options) {
 		this.url = this._fixUrl(request.url);
 		this._request = request;
@@ -9,16 +12,12 @@ class Request {
 		this.path = this._url.pathname;
 		this.query = qs.parse(this._url.search.slice(1));
 		this.method = (request.method || "get").toLowerCase();
-		this.body = (request.bodyUsed && request.body) || {};
+		this.body = request.body;
 		this.bodyUsed = request.bodyUsed === true;
 		this.headers = {};
 		this.cookies = {};
 
 		this._fetchValues(request);
-		/**
-		 * @type {ReadableStream}
-		 */
-		this.readStream = this._request.body;
 	}
 
 	/**
@@ -127,4 +126,4 @@ class Request {
 }
 
 
-module.exports = Request;
+module.exports = RouterRequest;

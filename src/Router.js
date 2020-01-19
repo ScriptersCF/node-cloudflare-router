@@ -2,6 +2,9 @@ const URLPattern = require("url-pattern"),
 	Request = require("./Request"),
 	Response = require("./Response");
 
+/**
+ * @type {Router}
+ */
 class Router {
 	constructor () {
 		this._main = null;
@@ -15,7 +18,7 @@ class Router {
 	/**
 	 * Extends the router
 	 * @param {string} path The path
-	 * @param {Function || Router }handler The router / function to extend
+	 * @param {Function || Router} handler The router / function to extend
 	 * @returns {null}
 	 */
 	use (path, handler) {
@@ -37,8 +40,8 @@ class Router {
 	 * Callback for handling a request
 	 *
 	 * @callback handleRequest
-	 * @param {Request} request,
-	 * @param {Response} response
+	 * @param {RouterRequest} request,
+	 * @param {RouterResponse} response
 	 */
 
 	/**
@@ -155,7 +158,7 @@ class Router {
 	/**
 	 * Serves the request to the router(s)
 	 * @param {any} request The request
-	 * @param {Object}options
+	 * @param {Object} options The options
 	 * @returns {Promise<[Response, [], Request]> | [Response, Request]}
 	 */
 	async serve (request, options) {
