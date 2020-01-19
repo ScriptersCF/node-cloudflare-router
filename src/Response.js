@@ -3,6 +3,10 @@ const contentTypes = {};
 
 
 class RequestResponse {
+	/**
+	 * Constructs a response
+	 * @param {Request} request The request
+	 */
 	constructor (request) {
 		this.request = request;
 		this.finalized = false;
@@ -18,44 +22,88 @@ class RequestResponse {
 		};
 	}
 
+	/**
+	 * Sets the body to JSON
+	 * @param {Object} data The data
+	 * @returns {RequestResponse}
+	 */
 	json (data) {
 		this.response.body = JSON.stringify(data);
 		this.response.responseType = "application/json";
 		return this;
 	}
 
+	/**
+	 * Sets the raw body and type
+	 * @param {any} body The body
+	 * @param {string} type The content-type
+	 * @returns {RequestResponse}
+	 */
 	raw (body, type) {
 		this.response.body = body;
 		this.response.responseType = type;
 		return this;
 	}
 
+	/**
+	 * Sets the status for the response
+	 * @param {string} text The status
+	 * @returns {RequestResponse}
+	 */
 	status (text) {
 		this.response.status = text;
 		return this;
 	}
 
+	/**
+	 * Responds with only text
+	 * @param {string} text Text to respond with
+	 * @returns {RequestResponse}
+	 */
 	text (text) {
 		this.response.body = text;
 		this.response.type = "text/plain";
 		return this;
 	}
 
+	/**
+	 * Sets status code for the response
+	 * @param {number} code The status code
+	 * @returns {RequestResponse}
+	 */
 	code (code) {
 		this.response.code = code;
 		return this;
 	}
 
+	/**
+	 * Sets tasks you can perform after the request using event.waitUntil()
+	 * @param {Promise[]} tasks The tasks
+	 * @returns {RequestResponse}
+	 */
 	tasks (tasks) {
 		this.response.tasks = tasks;
 		return this;
 	}
 
+	/**
+	 * Sets a header
+	 * @param {string} key The header key
+	 * @param {string} value The header value
+	 * @returns {RequestResponse}
+	 */
 	setHeader (key, value) {
 		this.response.headers[key] = value;
 		return this;
 	}
 
+	/**
+	 * Sets a cookie
+	 * @param {string} key The key
+	 * @param {string} value The value
+	 * @param {Object} options The options
+	 * @returns {RequestResponse}
+	 */
 	setCookie (key, value, options = {}) {
 		this.response.cookies[key] = {
 			value,
@@ -64,6 +112,11 @@ class RequestResponse {
 		return this;
 	}
 
+	/**
+	 * Use this instead of chaining methods (not necessary)
+	 * @param {{ code: number, status: string, tasks: Promise[], body: any, type: string }} data The data
+	 * @returns {RequestResponse}
+	 */
 	end (data = {}) {
 		const { code, status, tasks, body, type } = data;
 		if (code) this.response.code = code;
@@ -76,6 +129,11 @@ class RequestResponse {
 		return this;
 	}
 
+	/**
+	 * Redirects the request
+	 * @param {string} url The URL to redirect to
+	 * @param {number} status The redirect status code
+	 */
 	redirect (url, status) {
 		this.response.redirect = {
 			url,
@@ -83,7 +141,28 @@ class RequestResponse {
 		};
 	}
 
+	/**
+	 * Creates a native Response with body and init
+	 * @param {any} body The body
+	 * @param {Object} init The options
+	 */
+	custom (body, init) {
+		this._custom = new Response(body, init);
+	}
+
+	/**
+	 * This formats this response into an acceptable format for the worker to respond with
+	 * @returns {(Response|[]|*[])[]|(Response|RequestResponse|[]|*[])[]}
+	 * @private
+	 */
 	_format () {
+		if (this._custom) {
+			return [
+				this._custom,
+				this.response.tasks || []
+			]
+		}
+
 		if (this.response.tasks) {
 			this.response.tasks = Array.isArray(this.response.tasks) ? this.response.tasks : [this.response.tasks];
 		}

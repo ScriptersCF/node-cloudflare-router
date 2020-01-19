@@ -12,6 +12,12 @@ class Router {
 		this.basePath = null;
 	}
 
+	/**
+	 * Extends the router
+	 * @param {string} path The path
+	 * @param {Function || Router }handler The router / function to extend
+	 * @returns {null}
+	 */
 	use (path, handler) {
 		if (!(handler instanceof Router)) {
 			this.routes.push({
@@ -27,27 +33,67 @@ class Router {
 		}
 	}
 
+	/**
+	 * Callback for handling a request
+	 *
+	 * @callback handleRequest
+	 * @param {Request} request,
+	 * @param {Response} response
+	 */
+
+	/**
+	 * Setting up a handler for a GET request to the url
+	 * @param {string} path The path to accept
+	 * @param {handleRequest} handler
+	 */
 	get (path, handler) {
 		return this._addRoute(path, "get", handler);
 	}
 
+	/**
+	 * Setting up a handler for a POST request to the url
+	 * @param {string} path The path to accept
+	 * @param {handleRequest} handler
+	 */
 	post (path, handler) {
 		return this._addRoute(path, "post", handler);
 	}
 
+	/**
+	 * Setting up a handler for a OPTIONS request to the url
+	 * @param {string} path The path to accept
+	 * @param {handleRequest} handler
+	 */
 	options (path, handler) {
 		return this._addRoute(path, "options", handler);
 	}
 
+	/**
+	 * Setting up a handler for a HEAD request to the url
+	 * @param {string} path The path to accept
+	 * @param {handleRequest} handler
+	 */
 	head (path, handler) {
 		return this._addRoute(path, "head", handler);
 	}
 
+	/**
+	 * Setting up a handler for a DELETE request to the url
+	 * @param {string} path The path to accept
+	 * @param {handleRequest} handler
+	 */
 	delete (path, handler) {
 		return this._addRoute(path, "delete", handler);
 	}
 
-
+	/**
+	 * Sets up a route "manually"
+	 * @param {string} path The path to add for
+	 * @param {string} method The method to accept
+	 * @param {handleRequest} handler The request handler
+	 * @param {boolean} middleware Whether or not the handler is a middleware
+	 * @private
+	 */
 	_addRoute (path, method, handler, middleware) {
 		const routeData = {
 			rawPath: this._path(path),
@@ -69,6 +115,12 @@ class Router {
 		}
 	}
 
+	/**
+	 * Fixes a given path
+	 * @param {string} path The path to fix
+	 * @returns {string}
+	 * @private
+	 */
 	_path (path) {
 		path = `${this.basePath || "/"}${path.startsWith("/") ? path.slice(1) : path}`;
 		if (!path.endsWith("/")) {
@@ -78,6 +130,11 @@ class Router {
 		return path;
 	}
 
+	/**
+	 * Initiates the current router (only call this from main)
+	 * @param {Router | null} main The main router (if none is provided, this router is considered to be it)
+	 * @returns {null}
+	 */
 	init (main) {
 		if (this._initiated === true) return;
 		if (main === this || !main || this._main === this) {
@@ -95,6 +152,12 @@ class Router {
 		}
 	}
 
+	/**
+	 * Serves the request to the router(s)
+	 * @param {any} request The request
+	 * @param {Object}options
+	 * @returns {Promise<[Response, [], Request]> | [Response, Request]}
+	 */
 	async serve (request, options) {
 		if (!this._initiated) this.init(this._main ||this);
 		if (this._main !== this) return;
