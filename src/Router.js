@@ -105,7 +105,6 @@ class Router {
 			handler
 		};
 
-		console.log(`Routed: ${routeData.method.toUpperCase()} ${routeData.rawPath}`);
 		if (!middleware) {
 			routeData.route = true;
 		} else {
@@ -201,7 +200,6 @@ class Router {
 
 			let foundMatchingRoute = false;
 
-			console.log(response);
 			if (response.finalized === true) {
 				return [response, request];
 			} else {
