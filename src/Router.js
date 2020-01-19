@@ -101,10 +101,11 @@ class Router {
 		const routeData = {
 			rawPath: this._path(path),
 			path: new URLPattern(this._path(path)),
-			method: method.toLowerCase(),
+			method: (method || "get").toLowerCase(),
 			handler
 		};
 
+		console.log(`Routed: ${routeData.method.toUpperCase()} ${routeData.rawPath}`);
 		if (!middleware) {
 			routeData.route = true;
 		} else {
@@ -199,25 +200,31 @@ class Router {
 			}
 
 			let foundMatchingRoute = false;
-			for (let n = 0; n < routesMatching.length; n++) {
-				const route = routesMatching[n];
-				const matched = route.path.match(request.path);
-				let toBreak = false;
-				if (matched) {
-					try {
-						request.params = matched;
-						await route.handler(request, response);
-						returnData = [response, request];
-						foundMatchingRoute = true;
-						toBreak = true;
-					} catch (e) {
-						returnData = e;
-						toBreak = true;
-					}
-				}
 
-				if (toBreak === true) {
-					break;
+			console.log(response);
+			if (response.finalized === true) {
+				return [response, request];
+			} else {
+				for (let n = 0; n < routesMatching.length; n++) {
+					const route = routesMatching[n];
+					const matched = route.path.match(request.path);
+					let toBreak = false;
+					if (matched) {
+						try {
+							request.params = matched;
+							await route.handler(request, response);
+							returnData = [response, request];
+							foundMatchingRoute = true;
+							toBreak = true;
+						} catch (e) {
+							returnData = e;
+							toBreak = true;
+						}
+					}
+
+					if (toBreak === true) {
+						break;
+					}
 				}
 			}
 
