@@ -183,7 +183,7 @@ class Router {
 
 				if (matched) {
 					try {
-						allMiddlewaresSuccess = middleware.handler(request, response);
+						allMiddlewaresSuccess = await middleware.handler(request, response);
 						if (!allMiddlewaresSuccess) {
 							break;
 						}
