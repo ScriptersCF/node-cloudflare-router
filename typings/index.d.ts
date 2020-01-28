@@ -54,7 +54,7 @@ declare module "cf-router" {
                 url: string,
                 status: number
             }
-        }
+        };
 
         public json (data: Object): RouterResponse;
         public raw (body: any, type: string): RouterResponse;

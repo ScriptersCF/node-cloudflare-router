@@ -49,6 +49,10 @@ class RouterRequest {
 		return endChar !== "/" ? [url.slice(0, endIndex), "/", url.slice(endIndex)].join("") : url;
 	}
 
+	fetch () {
+		return fetch(this._request);
+	}
+
 	/**
 	 * Parses the body and returns it
 	 * @returns {Promise<Object | null>}
