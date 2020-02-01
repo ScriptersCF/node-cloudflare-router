@@ -84,7 +84,12 @@ class RouterResponse {
 	 * @returns {RequestResponse}
 	 */
 	tasks (tasks) {
-		this.response.tasks = tasks;
+		tasks = Array.isArray(tasks) ? tasks : [tasks];
+		if (this.tasks && Array.isArray(this.tasks)) {
+			this.tasks = [...this.tasks, ...tasks];
+		} else {
+			this.tasks = tasks;
+		}
 		return this;
 	}
 

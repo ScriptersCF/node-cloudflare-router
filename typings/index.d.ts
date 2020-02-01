@@ -28,6 +28,7 @@ declare module "cf-router" {
         public bodyUsed: boolean;
         public headers: Object;
         public cookies: Object;
+        public response: RouterResponse;
 
         public _fetchValues (request: RouterRequest): void;
         public _fixUrl (url: string): string;

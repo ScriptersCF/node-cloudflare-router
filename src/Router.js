@@ -167,6 +167,7 @@ class Router {
 
 		request = request && new Request(request, options);
 		let response = new Response(request);
+		request.response = response;
 		let allMiddlewaresSuccess = true;
 		let returnData;
 
