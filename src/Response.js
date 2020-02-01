@@ -85,10 +85,10 @@ class RouterResponse {
 	 */
 	tasks (tasks) {
 		tasks = Array.isArray(tasks) ? tasks : [tasks];
-		if (this.tasks && Array.isArray(this.tasks)) {
-			this.tasks = [...this.tasks, ...tasks];
+		if (this.response.tasks && Array.isArray(this.response.tasks)) {
+			this.response.tasks = [...this.tasks, ...tasks];
 		} else {
-			this.tasks = tasks;
+			this.response.tasks = tasks;
 		}
 		return this;
 	}
