@@ -1,8 +1,2 @@
-node_modules
-tests/test.js
-wrangler.toml
-plan
-oldSrc
 .idea
-dist
-worker
+node_modules
