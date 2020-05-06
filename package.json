@@ -1,28 +1,32 @@
 {
   "name": "cf-router",
-  "version": "1.0.14",
-  "description": "A simple Cloudflare Workers router",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "A simple (yet powerful) Cloudflare Workers router",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --skipLibCheck"
   },
   "author": "Visualizememe",
   "license": "MIT",
   "dependencies": {
-    "cookie": "^0.4.0",
-    "service-worker-router": "^1.7.5",
+    "cookie": "^0.4.1",
     "url-pattern": "^1.0.3"
   },
   "devDependencies": {
+    "@types/cookie": "^0.3.3",
+    "@types/node": "^13.13.5",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^6.8.0",
     "eslint-plugin-security": "^1.4.0",
-    "express": "^4.17.1",
-    "jest": "^24.9.0"
+    "jest": "^26.0.1",
+    "typescript": "^3.8.3"
   },
   "repository": {
     "directory": "https://github.com/ScriptersCF/node-cf-router",
     "type": "GitHub",
     "url": "https://github.com/ScriptersCF/node-cf-router"
   },
-  "types": "./typings/index.d.ts"
+  "types": "dist/index.d.ts"
 }

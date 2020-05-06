@@ -11,23 +11,21 @@ is to tell the module when you want to process a request, and it will handle eve
 
 In order to tell the module when it should process a request (or more specifically ,telling the *router*):
 ```JavaScript
-const Router = require("cf-router");
+const { Router } = require("cf-router");
 const router = new Router();
+const apiRouter = new Router();
 
-router.get("/", (req, res) => {
-    res.text("Welcome!");
-});
+// Connecting routers
+router.use("/api", apiRouter);
 
-router.responseHandler = (response, tasks, request) => {
-    return response;
-};
+// Setting up paths
+router.get("/", (req, res) => res.text("Hello, world!"));
+apiRouter.get("/", (req, res) => res.text("Welcome to the API!"));
+apiRouter.get("/welcome/:name", (req, res) => res.text(`Welcome, ${req.params.name}`));
 
-// Listening for incoming requests
+// Listening for requests
 addEventListener("fetch", event => {
-    return event.respondWith((async () => {
-        // Give the router the request object
-        return router.serve(event.request);
-    })());
+    event.respondWith(router.serve(event.request));
 });
 
 ```
@@ -69,7 +67,7 @@ router.use("/admin", admin);
 router.use("/api", api);
 api.use("/v1", apiV1);
 
-router.responseHandler = (response, tasks, request) => {
+router.responseHandler = (response, request, tasks) => {
 	// response is the response data
 	// tasks is the tasks that can be processed after the response (event.waitUntil)
 	// request is the request data
