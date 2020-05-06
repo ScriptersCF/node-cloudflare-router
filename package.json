@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --skipLibCheck"
+    "build": "tsc --skipLibCheck",
+    "prepublish": "npm run build"
   },
   "author": "Visualizememe",
   "license": "MIT",
