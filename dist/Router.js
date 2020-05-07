@@ -28,7 +28,8 @@ class Router {
         return path;
     }
     updateBasePath(basePath) {
-        this.basePath = basePath || "/";
+        this.basePath = null;
+        this.basePath = this.fixPath(basePath || "/");
         const updatedRoutes = [];
         for (const route of this.routes) {
             const newFixedPath = this.fixPath(route.originalPath);
