@@ -4,7 +4,7 @@ import RouterRequest from "./Request";
 import RouterResponse from "./Response";
 
 
-export declare type RouterHandlerCallback = (request: RouterRequest, response: RouterResponse) => void;
+export declare type RouterHandlerCallback = (request: RouterRequest, response: RouterResponse, extraOptions?: unknown) => void;
 
 export declare type RouteOptions = {
     method: string;
