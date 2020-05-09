@@ -25,6 +25,7 @@ export default class RouterResponse {
             statusCode: number;
         };
     };
+    [key: string]: unknown;
 
     constructor (request: RouterRequest) {
         this.request = request;

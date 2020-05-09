@@ -20,6 +20,7 @@ export default class RouterRequest {
     cookies: {
         [key: string]: string;
     };
+    [key: string]: unknown;
     constructor(request: EventRequest, options?: unknown);
     fetch(): Promise<Response>;
     json(): Promise<{

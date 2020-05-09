@@ -16,6 +16,7 @@ export default class RouterRequest {
     public bodyUsed: boolean;
     public headers: { [key: string]: string };
     public cookies: { [key: string]: string };
+    [key: string]: unknown;
 
     constructor (request: EventRequest, options?: unknown) {
         this.options = options;

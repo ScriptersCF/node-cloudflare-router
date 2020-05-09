@@ -198,7 +198,7 @@ export default class Router {
         }
     }
 
-    async serve (rawRequest: EventRequest): Promise<Response> {
+    async serve (rawRequest: EventRequest, extraOptions: unknown): Promise<Response> {
         const request = new RouterRequest(rawRequest);
         const response = new RouterResponse(request);
 
@@ -210,13 +210,13 @@ export default class Router {
 
             if (!this.setup.middlewareWaterfall) {
                 // Do all middlewares at the same time
-                await Promise.all(middlewareRoutes.map(middleware => middleware.handler instanceof Function && middleware.handler(request, response)));
+                await Promise.all(middlewareRoutes.map(middleware => middleware.handler instanceof Function && middleware.handler(request, response, extraOptions)));
             } else {
                 // Chronologically go through the middlewares and wait for one to finish before moving on
                 for (const middleware of middlewareRoutes) {
                     if (middleware && middleware.handler instanceof Function) {
                         // eslint-disable-next-line no-await-in-loop
-                        await middleware.handler(request, response);
+                        await middleware.handler(request, response, extraOptions);
                     } else {
                         throw new Error("Unexpected middleware type");
                     }
@@ -248,7 +248,7 @@ export default class Router {
                     if (foundRoute.route) {
                         if (foundRoute.route.handler instanceof Function) {
                             // To prevent the "await" part from erroring, we create a "fake" custom async function
-                            await (async () => foundRoute && foundRoute.route && foundRoute.route.handler && foundRoute.route.handler instanceof Function && foundRoute.route.handler(request, response))()
+                            await (async () => foundRoute && foundRoute.route && foundRoute.route.handler && foundRoute.route.handler instanceof Function && foundRoute.route.handler(request, response, extraOptions))()
                                 .catch((error: Error) => {
                                     throw error;
                                 });
