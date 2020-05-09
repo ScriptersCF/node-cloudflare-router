@@ -2,7 +2,7 @@ import UrlPattern from "url-pattern";
 import { EventRequest } from "./Interfaces";
 import RouterRequest from "./Request";
 import RouterResponse from "./Response";
-export declare type RouterHandlerCallback = (request: RouterRequest, response: RouterResponse) => void;
+export declare type RouterHandlerCallback = (request: RouterRequest, response: RouterResponse, extraOptions?: unknown) => void;
 export declare type RouteOptions = {
     method: string;
     path: string;
@@ -39,5 +39,5 @@ export default class Router {
     head(path: string, handler: RouterHandlerCallback): void;
     delete(path: string, handler: RouterHandlerCallback): void;
     getRoutes(caller?: Router): Array<RouteObject>;
-    serve(rawRequest: EventRequest): Promise<Response>;
+    serve(rawRequest: EventRequest, extraOptions: unknown): Promise<Response>;
 }

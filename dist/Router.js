@@ -147,7 +147,7 @@ class Router {
             return routes;
         }
     }
-    async serve(rawRequest) {
+    async serve(rawRequest, extraOptions) {
         const request = new Request_1.default(rawRequest);
         const response = new Response_1.default(request);
         const processRequest = async () => {
@@ -156,12 +156,12 @@ class Router {
             const middlewareRoutes = foundRoutes.filter(route => route.middleware);
             const handlerRoutes = foundRoutes.filter(route => route.method === request.method);
             if (!this.setup.middlewareWaterfall) {
-                await Promise.all(middlewareRoutes.map(middleware => middleware.handler instanceof Function && middleware.handler(request, response)));
+                await Promise.all(middlewareRoutes.map(middleware => middleware.handler instanceof Function && middleware.handler(request, response, extraOptions)));
             }
             else {
                 for (const middleware of middlewareRoutes) {
                     if (middleware && middleware.handler instanceof Function) {
-                        await middleware.handler(request, response);
+                        await middleware.handler(request, response, extraOptions);
                     }
                     else {
                         throw new Error("Unexpected middleware type");
@@ -186,7 +186,7 @@ class Router {
                 if (foundRoute) {
                     if (foundRoute.route) {
                         if (foundRoute.route.handler instanceof Function) {
-                            await (async () => foundRoute && foundRoute.route && foundRoute.route.handler && foundRoute.route.handler instanceof Function && foundRoute.route.handler(request, response))()
+                            await (async () => foundRoute && foundRoute.route && foundRoute.route.handler && foundRoute.route.handler instanceof Function && foundRoute.route.handler(request, response, extraOptions))()
                                 .catch((error) => {
                                 throw error;
                             });
