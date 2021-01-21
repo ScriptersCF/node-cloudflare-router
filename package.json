@@ -1,5 +1,5 @@
 {
-  "name": "cf-router",
+  "name": "cloudflare-router",
   "version": "1.1.103",
   "description": "A simple (yet powerful) Cloudflare Workers router",
   "main": "dist/index.js",
@@ -16,13 +16,13 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.3.3",
-    "@types/node": "^13.13.5",
-    "@typescript-eslint/eslint-plugin": "^2.31.0",
-    "@typescript-eslint/parser": "^2.31.0",
+    "@types/node": "^13.13.40",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.8.0",
     "eslint-plugin-security": "^1.4.0",
-    "jest": "^26.0.1",
-    "typescript": "^3.8.3"
+    "jest": "^26.6.3",
+    "typescript": "^3.9.7"
   },
   "repository": {
     "directory": "https://github.com/ScriptersCF/node-cf-router",
