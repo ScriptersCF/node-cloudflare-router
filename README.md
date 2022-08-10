@@ -9,7 +9,7 @@ A simple module for easily processing incoming requests to Cloudflare Workers.
 This module is super-easy to use, and it's plug-and-play. Literally. All you have to do to start
 is to tell the module when you want to process a request, and it will handle everything for you.
 
-In order to tell the module when it should process a request (or more specifically ,telling the *router*):
+In order to tell the module when it should process a request (or more specifically, telling the *router*):
 ```JavaScript
 const { Router } = require("cf-router");
 const router = new Router();
